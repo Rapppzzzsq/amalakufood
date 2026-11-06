@@ -9,8 +9,13 @@ if (!connectionString) {
   throw new Error("DATABASE_URL must be set to connect to PostgreSQL.");
 }
 
+<<<<<<< HEAD
 const globalForPrisma = globalThis as typeof globalThis & {
   prisma?: PrismaClient;
+=======
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
 };
 
 export const prisma =

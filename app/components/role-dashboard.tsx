@@ -2,7 +2,10 @@
 
 import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
+<<<<<<< HEAD
 import Image from "next/image";
+=======
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
 
 type Role = "Customer" | "Admin" | "Kasir" | "Owner";
 type Profile = Record<string, string | number | null>;
@@ -89,6 +92,7 @@ type DashboardData = {
   summary: Record<string, number>;
 };
 
+<<<<<<< HEAD
 type DemoStore = {
   user?: User;
   products: Product[];
@@ -384,6 +388,8 @@ function isDashboardRole(value: string): value is Role {
   return value === "Customer" || value === "Admin" || value === "Kasir" || value === "Owner";
 }
 
+=======
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
 async function requestJson<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, {
     ...init,
@@ -392,10 +398,13 @@ async function requestJson<T>(url: string, init?: RequestInit): Promise<T> {
       ...init?.headers,
     },
   });
+<<<<<<< HEAD
   if (response.status === 404 && url.startsWith("/api/")) {
     demoModeActive = true;
     return demoApiRequest<T>(url, init);
   }
+=======
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
   const result: unknown = await response.json();
   if (!response.ok) {
     const message =
@@ -428,12 +437,18 @@ function Modal({
   title,
   onClose,
   children,
+<<<<<<< HEAD
   danger = false,
+=======
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
 }: {
   title: string;
   onClose: () => void;
   children: ReactNode;
+<<<<<<< HEAD
   danger?: boolean;
+=======
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#32180dcc] p-4">
@@ -441,7 +456,11 @@ function Modal({
         aria-modal="true"
         role="dialog"
         aria-labelledby="modal-title"
+<<<<<<< HEAD
         className={`w-full max-w-lg rounded-3xl border-4 ${danger ? "border-[#dc2626]" : "border-[#f5c518]"} bg-white p-6 shadow-2xl`}
+=======
+        className="w-full max-w-lg rounded-3xl border-4 border-[#f5c518] bg-white p-6 shadow-2xl"
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
       >
         <div className="mb-5 flex items-center justify-between gap-4">
           <h2 id="modal-title" className="text-xl font-extrabold text-[#5c2c16]">
@@ -506,7 +525,10 @@ function PrimaryButton({
 export default function RoleDashboard({ role }: { role: Role }) {
   const router = useRouter();
   const [data, setData] = useState<DashboardData | null>(null);
+<<<<<<< HEAD
   const [demoMode, setDemoMode] = useState(false);
+=======
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
   const [section, setSection] = useState<Section>("Beranda");
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -565,7 +587,10 @@ export default function RoleDashboard({ role }: { role: Role }) {
   const refresh = async () => {
     try {
       const next = await loadData(role);
+<<<<<<< HEAD
       setDemoMode(demoModeActive || localStorage.getItem("amalakufood-demo-mode") === "true");
+=======
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
       if (next) {
         setData(next);
         const street = next.user.profile.jalan;
@@ -573,7 +598,10 @@ export default function RoleDashboard({ role }: { role: Role }) {
       }
     } catch (reason) {
       const message = reason instanceof Error ? reason.message : "Data gagal dimuat.";
+<<<<<<< HEAD
       setDemoMode(demoModeActive || localStorage.getItem("amalakufood-demo-mode") === "true");
+=======
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
       if (message.includes("Sesi tidak valid")) {
         router.replace(`/login?role=${role}`);
         return;
@@ -806,7 +834,11 @@ export default function RoleDashboard({ role }: { role: Role }) {
         <span className="rounded-full bg-[#fff0ba] px-2.5 py-1 text-xs font-bold text-[#5c2c16]">{product.kategori}</span>
         <h3 className="mt-3 text-lg font-extrabold text-[#5c2c16]">{product.nama_produk}</h3>
         <p className="mt-1 font-bold text-[#7b411e]">{rupiah(product.harga)}</p>
+<<<<<<< HEAD
         <p className="mt-2"><span className={`rounded-full px-3 py-1 text-xs font-bold ${product.stok <= 5 ? "bg-red-100 text-[#b91c1c]" : "bg-green-100 text-[#166534]"}`}>{product.stok <= 5 ? `Stok menipis: ${product.stok}` : `Stok: ${product.stok}`}</span></p>
+=======
+        <p className="mt-1 text-sm text-[#725944]">Stok: {product.stok}</p>
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
         {editable && (
           <div className="mt-4 flex gap-2">
             <PrimaryButton type="button" onClick={() => setModal(
@@ -864,6 +896,7 @@ export default function RoleDashboard({ role }: { role: Role }) {
                 </form>
               </Modal>,
             )}>Ubah</PrimaryButton>
+<<<<<<< HEAD
             <PrimaryButton type="button" onClick={() => setModal(
               <Modal title="Ubah Poin Customer" onClose={() => setModal(null)}>
                 <form className="grid gap-3" onSubmit={(event) => submitForm(event, async (values) => {
@@ -880,6 +913,18 @@ export default function RoleDashboard({ role }: { role: Role }) {
                 </form>
               </Modal>,
             )}>Poin</PrimaryButton>
+=======
+            <button type="button" onClick={() => {
+              const points = window.prompt("Masukkan jumlah poin baru:", String(customer.poin));
+              if (points === null) return;
+              void runAction(async () => {
+                await requestJson("/api/customer", {
+                  method: "PATCH",
+                  body: JSON.stringify({ id_customer: customer.id_customer, poin: Number(points) }),
+                });
+              }, "Poin customer diperbarui.");
+            }} className="rounded-xl border border-[#ddbd53] px-4 py-2 font-bold text-[#5c2c16]">Poin</button>
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
             <button type="button" onClick={() => setModal(
               <Modal title="Hapus Customer?" onClose={() => setModal(null)}>
                 <p className="mb-5 text-[#5c2c16]">Data {customer.nama_customer} dan riwayat transaksinya akan dihapus.</p>
@@ -933,7 +978,11 @@ export default function RoleDashboard({ role }: { role: Role }) {
                 });
               }, "Pembayaran berhasil divalidasi.")}>Validasi Pembayaran</PrimaryButton>
               <button type="button" onClick={() => setModal(
+<<<<<<< HEAD
                 <Modal title="Pembayaran Ditolak" onClose={() => setModal(null)} danger>
+=======
+                <Modal title="Pembayaran Ditolak" onClose={() => setModal(null)}>
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
                   <p className="mb-5 text-[#5c2c16]">Tolak pembayaran untuk pesanan #{order.id_pesanan}?</p>
                   <button type="button" onClick={() => void runAction(async () => {
                     await requestJson("/api/pesanan", {
@@ -1018,6 +1067,7 @@ export default function RoleDashboard({ role }: { role: Role }) {
         {ownerActions ? (
           <>
             <PrimaryButton type="button" onClick={() => setModal(
+<<<<<<< HEAD
               <Modal title="Ubah Rekap Laporan" onClose={() => setModal(null)}>
                 <p className="mb-4 text-[#5c2c16]">Pilih tindakan untuk laporan {report.id_laporan_kasir}.</p>
                 <div className="flex flex-wrap gap-2">
@@ -1066,6 +1116,39 @@ export default function RoleDashboard({ role }: { role: Role }) {
                 }, "Laporan berhasil dihapus.")} className="rounded-xl bg-[#dc2626] px-4 py-2 font-bold text-white">Hapus</button>
               </Modal>,
             )} className="rounded-xl bg-[#dc2626] px-4 py-2 font-bold text-white">Hapus</button>
+=======
+              <Modal title="Evaluasi Laporan" onClose={() => setModal(null)}>
+                <form className="grid gap-3" onSubmit={(event) => submitForm(event, async (values) => {
+                  await requestJson("/api/laporan", {
+                    method: "POST",
+                    body: JSON.stringify({
+                      id_laporan_kasir: report.id_laporan_kasir,
+                      catatan_evaluasi: values.get("catatan_evaluasi"),
+                    }),
+                  });
+                }, "Evaluasi berhasil disimpan.")}>
+                  <label className="grid gap-1.5 text-sm font-semibold text-[#5c2c16]">
+                    Catatan
+                    <textarea name="catatan_evaluasi" required maxLength={255} className="rounded-xl border border-[#d8c49b] p-3" rows={4} />
+                  </label>
+                  <PrimaryButton disabled={busy}>Simpan Evaluasi</PrimaryButton>
+                </form>
+              </Modal>,
+            )}>Evaluasi</PrimaryButton>
+            <button type="button" onClick={() => void runAction(async () => {
+              await requestJson("/api/laporan", {
+                method: "PATCH",
+                body: JSON.stringify({ action: "approve", id_laporan_kasir: report.id_laporan_kasir }),
+              });
+            }, "Rekapan laporan disetujui.")} className="rounded-xl bg-[#16a34a] px-4 py-2.5 font-bold text-white">Setujui</button>
+            <button type="button" onClick={() => window.print()} className="rounded-xl border border-[#d8c49b] px-4 py-2 font-bold text-[#5c2c16]">Cetak</button>
+            <button type="button" onClick={() => void runAction(async () => {
+              await requestJson("/api/laporan", {
+                method: "DELETE",
+                body: JSON.stringify({ id_laporan_kasir: report.id_laporan_kasir }),
+              });
+            }, "Laporan berhasil dihapus.")} className="rounded-xl bg-[#dc2626] px-4 py-2 font-bold text-white">Hapus</button>
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
           </>
         ) : role === "Kasir" && report.status_penjualan !== "Disetujui" ? (
           <>
@@ -1087,6 +1170,7 @@ export default function RoleDashboard({ role }: { role: Role }) {
                 </form>
               </Modal>,
             )}>Ubah</PrimaryButton>
+<<<<<<< HEAD
             <button type="button" onClick={() => setModal(
               <Modal title="Hapus Laporan?" onClose={() => setModal(null)}>
                 <p className="mb-5 text-[#5c2c16]">Hapus laporan {report.id_laporan_kasir}?</p>
@@ -1098,6 +1182,14 @@ export default function RoleDashboard({ role }: { role: Role }) {
                 }, "Laporan berhasil dihapus.")} className="rounded-xl bg-[#dc2626] px-4 py-2 font-bold text-white">Hapus</button>
               </Modal>,
             )} className="rounded-xl bg-[#dc2626] px-4 py-2 font-bold text-white">Hapus</button>
+=======
+            <button type="button" onClick={() => void runAction(async () => {
+              await requestJson("/api/laporan", {
+                method: "DELETE",
+                body: JSON.stringify({ id_laporan_kasir: report.id_laporan_kasir }),
+              });
+            }, "Laporan berhasil dihapus.")} className="rounded-xl bg-[#dc2626] px-4 py-2 font-bold text-white">Hapus</button>
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
           </>
         ) : (
           <button type="button" onClick={() => window.print()} className="rounded-xl border border-[#d8c49b] px-4 py-2 font-bold text-[#5c2c16]">Cetak</button>
@@ -1120,6 +1212,7 @@ export default function RoleDashboard({ role }: { role: Role }) {
 
   const sectionContent = () => {
     if (section === "Beranda") {
+<<<<<<< HEAD
       const greetingName = role === "Customer"
         ? data.user.profile.nama_customer
         : role === "Admin"
@@ -1127,6 +1220,8 @@ export default function RoleDashboard({ role }: { role: Role }) {
           : role === "Kasir"
             ? `Kasir ${data.user.profile.id_kasir ?? data.user.username}`
             : `Owner ${data.user.profile.id_owner ?? data.user.username}`;
+=======
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
       const cards =
         role === "Customer"
           ? [["Produk tersedia", products.length], ["Poin Anda", Number(data.user.profile.poin ?? 0)]]
@@ -1145,7 +1240,11 @@ export default function RoleDashboard({ role }: { role: Role }) {
           <section className="rounded-3xl bg-[#f5c518] p-8 text-[#5c2c16] sm:p-10">
             <p className="font-bold">Fresh From Our Oven</p>
             <h2 className="mt-2 text-3xl font-black">
+<<<<<<< HEAD
               {role === "Owner" ? "Halo" : "Selamat bekerja"}, {greetingName}
+=======
+              {role === "Owner" ? "Halo" : "Selamat bekerja"}, {data.user.profile.nama_customer ?? data.user.profile.nama_admin ?? data.user.profile.nama_kasir ?? data.user.profile.nama_owner ?? data.user.username}
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
             </h2>
             <p className="mt-2">Kue segar setiap hari, dibuat dengan sepenuh hati.</p>
             {role === "Customer" && <PrimaryButton type="button" className="mt-5 bg-white" onClick={() => setSection("Katalog")}>Lihat Katalog</PrimaryButton>}
@@ -1197,6 +1296,7 @@ export default function RoleDashboard({ role }: { role: Role }) {
                 {paymentMethod === "QRIS" ? "Scan QRIS untuk membayar. " : ""}
                 Pembayaran akan diperiksa oleh Kasir.
               </p>
+<<<<<<< HEAD
               <PrimaryButton type="button" className="mt-5" onClick={() => setModal(
                 <Modal title="Pesanan berhasil!" onClose={() => setModal(null)}>
                   <p className="mb-5 text-[#5c2c16]">Pesanan #{checkoutId} berhasil dibuat. Pembayaran akan diperiksa oleh Kasir.</p>
@@ -1209,6 +1309,15 @@ export default function RoleDashboard({ role }: { role: Role }) {
                   }}>Lihat Riwayat Pesanan</PrimaryButton>
                 </Modal>,
               )}>Saya sudah bayar</PrimaryButton>
+=======
+              <PrimaryButton type="button" className="mt-5" onClick={() => {
+                setNotice("Pesanan berhasil! Pembayaran menunggu validasi Kasir.");
+                setCheckoutId("");
+                setCart({});
+                setSection("Riwayat");
+                void refresh();
+              }}>Saya sudah bayar</PrimaryButton>
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
             </section>
           );
         }
@@ -1326,7 +1435,11 @@ export default function RoleDashboard({ role }: { role: Role }) {
       }
       if (section === "Bukti Pembayaran") {
         const paidOrders = data.orders.filter((order) => order.pembayaran?.status_pembayaran === "Berhasil");
+<<<<<<< HEAD
         return <section className="space-y-4"><h2 className="text-2xl font-black text-[#5c2c16]">Bukti Pembayaran</h2>{paidOrders.map((order) => <article key={order.id_pesanan} className="max-w-xl rounded-2xl border border-[#eadcb8] bg-white p-6"><p className="text-center text-xl font-black text-[#5c2c16]">Nota Toko Kue Amala</p><p className="mt-4 text-sm text-[#725944]">No. Nota: {order.pembayaran?.nota?.no_nota ?? order.id_pesanan}</p><p className="text-sm text-[#725944]">Customer: {order.customer.nama_customer}</p><p className="text-sm text-[#725944]">Tanggal: {dateLabel(order.tanggal_pesanan)}</p><ul className="my-3 border-y py-3 text-sm text-[#725944]">{order.detail_pesanan.map((line, index) => <li key={index}>{line.jumlah} × {line.produk.nama_produk} — {rupiah(line.subtotal)}</li>)}</ul><p className="font-bold text-[#5c2c16]">Total: {rupiah(order.total_tagihan)}</p><p className="text-sm text-[#725944]">Metode: {order.pembayaran?.metode_pembayaran} · Berhasil</p><PrimaryButton type="button" className="mt-4" onClick={() => setModal(<Modal title="Nota berhasil dicetak" onClose={() => setModal(null)}><p className="mb-5 text-[#5c2c16]">Cetak nota pesanan #{order.id_pesanan}?</p><PrimaryButton type="button" onClick={() => { setModal(null); window.print(); setNotice("Nota berhasil dicetak."); }}>Cetak Nota</PrimaryButton></Modal>)}>Cetak Nota</PrimaryButton></article>)}</section>;
+=======
+        return <section className="space-y-4"><h2 className="text-2xl font-black text-[#5c2c16]">Bukti Pembayaran</h2>{paidOrders.map((order) => <article key={order.id_pesanan} className="max-w-xl rounded-2xl border border-[#eadcb8] bg-white p-6"><p className="text-center text-xl font-black text-[#5c2c16]">Nota Toko Kue Amala</p><p className="mt-4 text-sm text-[#725944]">No. Nota: {order.pembayaran?.nota?.no_nota ?? order.id_pesanan}</p><p className="text-sm text-[#725944]">Customer: {order.customer.nama_customer}</p><p className="text-sm text-[#725944]">Tanggal: {dateLabel(order.tanggal_pesanan)}</p><ul className="my-3 border-y py-3 text-sm text-[#725944]">{order.detail_pesanan.map((line, index) => <li key={index}>{line.jumlah} × {line.produk.nama_produk} — {rupiah(line.subtotal)}</li>)}</ul><p className="font-bold text-[#5c2c16]">Total: {rupiah(order.total_tagihan)}</p><p className="text-sm text-[#725944]">Metode: {order.pembayaran?.metode_pembayaran} · Berhasil</p><PrimaryButton type="button" className="mt-4" onClick={() => { window.print(); setNotice("Nota berhasil dicetak."); }}>Cetak Nota</PrimaryButton></article>)}</section>;
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
       }
       if (section === "Laporan Stok" || section === "Laporan Penjualan") {
         const kind = section === "Laporan Stok" ? "Stok" : "Penjualan";
@@ -1443,6 +1556,7 @@ export default function RoleDashboard({ role }: { role: Role }) {
       {role === "Customer" ? (
         <header className="sticky top-0 z-20 border-b border-[#eadcb8] bg-white/95 backdrop-blur">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 sm:px-6">
+<<<<<<< HEAD
               <button type="button" onClick={() => setSection("Beranda")} className="mr-auto flex items-center gap-2 text-xl font-black text-[#5c2c16]"><Image src="/images/amalakufood-logo.jpeg" alt="" width={40} height={40} className="rounded-full" />Amalakufood</button>
             {navItems.map((item) => <button key={item} type="button" onClick={() => setSection(item)} className={`rounded-lg px-3 py-2 text-sm font-bold ${section === item ? "bg-[#fff0ba]" : "hover:bg-[#fdf6e2]"}`}>{item}</button>)}
               <label className="order-last w-full sm:order-none sm:w-auto">
@@ -1450,6 +1564,11 @@ export default function RoleDashboard({ role }: { role: Role }) {
                 <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Cari kue..." className="w-full rounded-xl border border-[#ddc98e] px-3 py-2 text-sm outline-none focus:border-[#c39800] sm:w-40" />
               </label>
               <button type="button" onClick={() => setSection("Keranjang")} className="rounded-xl bg-[#f5c518] px-3 py-2 text-sm font-bold">Keranjang ({Object.values(cart).reduce((sum, count) => sum + count, 0)})</button>
+=======
+            <button type="button" onClick={() => setSection("Beranda")} className="mr-auto text-xl font-black text-[#5c2c16]">🍰 Amalakufood</button>
+            {navItems.map((item) => <button key={item} type="button" onClick={() => setSection(item)} className={`rounded-lg px-3 py-2 text-sm font-bold ${section === item ? "bg-[#fff0ba]" : "hover:bg-[#fdf6e2]"}`}>{item}</button>)}
+            <button type="button" onClick={() => setSection("Keranjang")} className="rounded-xl bg-[#f5c518] px-3 py-2 text-sm font-bold">Keranjang ({Object.values(cart).reduce((sum, count) => sum + count, 0)})</button>
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
             <button type="button" onClick={() => setSection("Profil")} className="rounded-full border px-3 py-2 text-sm font-bold">Profil</button>
           </div>
         </header>
@@ -1476,7 +1595,10 @@ export default function RoleDashboard({ role }: { role: Role }) {
             <button type="button" onClick={() => void refresh()} className="rounded-xl border border-[#ddc98e] bg-white px-3 py-2 text-sm font-bold">Muat ulang</button>
             {role !== "Customer" && <button type="button" onClick={logout} className="rounded-xl border border-[#dc2626] bg-white px-3 py-2 text-sm font-bold text-[#dc2626]">Keluar</button>}
           </div>
+<<<<<<< HEAD
           {demoMode && <p role="status" className="mb-4 rounded-xl border border-[#ddc98e] bg-[#fff0ba] px-4 py-3 text-sm font-semibold text-[#5c2c16]">Mode demo aktif. Perubahan disimpan di browser ini dan belum tersimpan ke PostgreSQL.</p>}
+=======
+>>>>>>> 3ce4b50aed49796525d704714b26962f4a473fd6
         </div>
         {error && <div role="alert" className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-[#dc2626]/30 bg-white p-3 text-sm text-[#a51f1f]"><span>{error}</span><button type="button" onClick={() => setError("")}>Tutup</button></div>}
         {notice && <div role="status" className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-[#16a34a]/30 bg-white p-3 text-sm text-[#166534]"><span>{notice}</span><button type="button" onClick={() => setNotice("")}>Tutup</button></div>}
